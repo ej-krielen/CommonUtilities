@@ -10,7 +10,7 @@ import android.content.pm.PackageManager;
  * @author Erik-Jan Krielen ej.krielen@gmail.com
  * @since 3-10-2015
  */
-public class AppUtilities {
+public final class AppUtilities {
 
     /**
      * @return Application's version code from the {@code PackageManager}.

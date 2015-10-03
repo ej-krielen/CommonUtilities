@@ -11,10 +11,10 @@ import android.net.NetworkInfo;
  * @author Erik-Jan Krielen ej.krielen@gmail.com
  * @since 3-10-2015
  */
-public class InternetConnection {
+public final class InternetConnection {
 
     /**
-     * @return Check to see if the device has an internet network connection (true/false)
+     * @return Check to see if the device is connected to internet (true/false)
      */
     public static boolean checkNetworkConnection(Activity activity) {
         ConnectivityManager connectivityManager
@@ -22,10 +22,4 @@ public class InternetConnection {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-
-    //TODO method to check data connection
-
-    //TODO method to combine both
-
-
 }

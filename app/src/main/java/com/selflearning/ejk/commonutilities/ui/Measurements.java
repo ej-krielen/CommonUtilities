@@ -10,7 +10,7 @@ import android.util.DisplayMetrics;
  * @author Erik-Jan Krielen ej.krielen@gmail.com
  * @since 3-10-2015
  */
-public class Measurements {
+public final class Measurements {
 
     /**
      * This method converts dp unit to equivalent pixels, depending on device density.
