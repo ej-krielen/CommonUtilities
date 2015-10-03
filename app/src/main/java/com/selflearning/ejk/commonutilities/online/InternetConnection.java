@@ -23,5 +23,9 @@ public class InternetConnection {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    //TODO method to check data connection
+
+    //TODO method to combine both
+
 
 }
