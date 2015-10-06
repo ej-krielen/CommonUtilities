@@ -17,9 +17,9 @@ import com.selflearning.ejk.commonutilities.R;
 public final class StandardIntents {
 
     /**
-     * Goes to the phone's default call number screen with the number filled in
+     * Goes to the device default call number activity with the number filled in
      *
-     * @param context context from where the method was callded
+     * @param context context from where the method was called
      * @param number  telephone number to call
      */
     public static void startPhoneActivity(Context context, String number) {
@@ -31,5 +31,27 @@ public final class StandardIntents {
             Toast.makeText(context, context.getString(R.string.error), Toast.LENGTH_SHORT).show();
         }
     }
+
+    /**
+     * Goes to the device default call number activity with the number filled in
+     *
+     * @param context context from where the method was called
+     * @param emailAddress email address to send email to
+     * @param subject subject line of the email
+     */
+    private static  void startEmailActivity(Context context, String emailAddress, String subject) {
+        if (!TextUtils.isEmpty(emailAddress) && !TextUtils.isEmpty(subject)) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_EMAIL, emailAddress);
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            if (intent.resolveActivity(context.getPackageManager()) != null) {
+                context.startActivity(intent);
+            }
+        } else {
+            Toast.makeText(context, context.getString(R.string.error), Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }
