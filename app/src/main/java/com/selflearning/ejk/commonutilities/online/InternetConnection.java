@@ -39,4 +39,21 @@ public final class InternetConnection {
     public static String checkNetworkType(Activity activity) {
         return getActiveNetwork(activity).getTypeName();
     }
+
+    /**
+     * This method requires an API level of 21+ (LOLLIPOP)
+     *
+     * @param activity calling activity
+     * @return Check if the device is connected to a VPN connection (true/false)
+     */
+    public static boolean isConnectedToVPN (Activity activity){
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_VPN);
+        }
+        return networkInfo != null && networkInfo.isConnected();
+    }
+
 }
