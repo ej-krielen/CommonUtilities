@@ -2,7 +2,6 @@ package com.selflearning.ejk.commonutilities.ui.dialogs;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
@@ -53,13 +52,13 @@ public final class Dialogs {
     /**
      * Simple Progress Dialog. Don't forget to dismiss (in onPause).
      *
-     * @param context calling context
-     * @param title   title for dialog
-     * @param message message for dialog
+     * @param activity calling activity
+     * @param title    title for dialog
+     * @param message  message for dialog
      * @return ProgressDialog
      */
-    public static ProgressDialog showProgress(Context context, String title, String message) {
-        ProgressDialog progressDialog = new ProgressDialog(context);
+    public static ProgressDialog showProgress(Activity activity, String title, String message) {
+        ProgressDialog progressDialog = new ProgressDialog(activity);
         progressDialog.setTitle(title);
         progressDialog.setMessage(message);
         progressDialog.setCancelable(false);
