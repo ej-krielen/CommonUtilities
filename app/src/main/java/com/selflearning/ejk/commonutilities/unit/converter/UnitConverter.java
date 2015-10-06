@@ -16,4 +16,10 @@ public final class UnitConverter {
         return ((fahrenheit - 32) / 1.8);
     }
 
+    //http://www.rapidtables.com/convert/index.htm
+    //TODO add dollar/euro
+    //TODO weight
+    //TODO length
+    //TODO color
+
 }
