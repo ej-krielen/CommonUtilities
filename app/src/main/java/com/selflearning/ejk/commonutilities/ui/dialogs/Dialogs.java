@@ -1,4 +1,4 @@
-package com.selflearning.ejk.commonutilities.dialogs;
+package com.selflearning.ejk.commonutilities.ui.dialogs;
 
 import android.app.Activity;
 import android.content.DialogInterface;
