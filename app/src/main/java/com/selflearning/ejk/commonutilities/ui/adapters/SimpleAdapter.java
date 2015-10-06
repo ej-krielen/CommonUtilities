@@ -1,4 +1,4 @@
-package com.selflearning.ejk.commonutilities.ui.ListItemAdapter;
+package com.selflearning.ejk.commonutilities.ui.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
