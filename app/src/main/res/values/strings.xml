@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">CommonUtilities</string>
     <string name="action_settings">Settings</string>
+
+    <!--General-->
     <string name="error">Custom error message here</string>
+
 </resources>
