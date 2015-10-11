@@ -26,4 +26,18 @@ public final class AppUtilities {
         }
     }
 
+    /**
+     * @return Application's version name from the {@code PackageManager}.
+     */
+    public static String getAppVersionName(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            // Should never happen
+            throw new RuntimeException("Could not get package name: " + e);
+        }
+    }
+
 }
