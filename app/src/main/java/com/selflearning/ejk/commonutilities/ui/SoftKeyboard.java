@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.selflearning.ejk.commonutilities.AppExtension;
+
 /**
  * Methods to control the softKeyboard
  *
@@ -13,12 +15,29 @@ import android.view.inputmethod.InputMethodManager;
  */
 public final class SoftKeyboard {
 
+    private static final String TAG = "SoftKeyboard";
+    private AppExtension mApp;
+
+    private static SoftKeyboard sInstance = null;
+
+    public static synchronized SoftKeyboard getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new SoftKeyboard(context);
+        }
+
+        return sInstance;
+    }
+
+    protected SoftKeyboard(Context context) {
+        mApp = (AppExtension) context.getApplicationContext();
+    }
+
     /**
      * Hides the softKeyboard
      *
      * @param activity calling Activity
      */
-    public static void hideSoftKeyboard(Activity activity) {
+    public void hideSoftKeyboard(Activity activity) {
         if (activity.getCurrentFocus() != null) {
             View view = activity.getCurrentFocus();
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);

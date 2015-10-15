@@ -5,6 +5,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.selflearning.ejk.commonutilities.AppExtension;
+
 /**
  * Methods to check for internet connection
  *
@@ -13,13 +15,30 @@ import android.net.NetworkInfo;
  */
 public final class InternetConnection {
 
+    private static final String TAG = "InternetConnection";
+    private AppExtension mApp;
+
+    private static InternetConnection sInstance = null;
+
+    public static synchronized InternetConnection getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new InternetConnection(context);
+        }
+
+        return sInstance;
+    }
+
+    protected InternetConnection(Context context) {
+        mApp = (AppExtension) context.getApplicationContext();
+    }
+
     /**
      * This method requires the caller to hold the permission {@link android.Manifest.permission#ACCESS_NETWORK_STATE}
      *
      * @param activity calling activity
      * @return NetworkInfo of the active network
      */
-    private static NetworkInfo getActiveNetwork(Activity activity){
+    private NetworkInfo getActiveNetwork(Activity activity){
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
         return connectivityManager.getActiveNetworkInfo();
@@ -28,7 +47,7 @@ public final class InternetConnection {
     /**
      * @return Check to see if the device is connected to internet (true/false)
      */
-    public static boolean isConnectedOnline(Activity activity) {
+    public boolean isConnectedOnline(Activity activity) {
         return getActiveNetwork(activity) != null && getActiveNetwork(activity).isConnectedOrConnecting();
     }
 
@@ -36,7 +55,7 @@ public final class InternetConnection {
      * @param activity calling activity
      * @return name of the type of network
      */
-    public static String checkNetworkType(Activity activity) {
+    public String checkNetworkType(Activity activity) {
         return getActiveNetwork(activity).getTypeName();
     }
 
@@ -46,7 +65,7 @@ public final class InternetConnection {
      * @param activity calling activity
      * @return Check if the device is connected to a VPN connection (true/false)
      */
-    public static boolean isConnectedToVPN (Activity activity){
+    public boolean isConnectedToVPN (Activity activity){
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = null;

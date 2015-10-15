@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
+import com.selflearning.ejk.commonutilities.AppExtension;
+
 /**
  * Methods containing ui measurements
  *
@@ -12,6 +14,23 @@ import android.util.DisplayMetrics;
  */
 public final class Measurements {
 
+    private static final String TAG = "Measurements";
+    private AppExtension mApp;
+
+    private static Measurements sInstance = null;
+
+    public static synchronized Measurements getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new Measurements(context);
+        }
+
+        return sInstance;
+    }
+
+    protected Measurements(Context context) {
+        mApp = (AppExtension) context.getApplicationContext();
+    }
+
     /**
      * This method converts dp unit to equivalent pixels, depending on device density.
      *
@@ -19,7 +38,7 @@ public final class Measurements {
      * @param context Context to get resources and device specific display metrics
      * @return A float value to represent px equivalent to dp depending on device density
      */
-    public static float convertDpToPixel(float dp, Context context){
+    public float convertDpToPixel(float dp, Context context){
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         return dp * (metrics.densityDpi / 160f);
@@ -32,11 +51,9 @@ public final class Measurements {
      * @param context Context to get resources and device specific display metrics
      * @return A float value to represent dp equivalent to px value
      */
-    public static float convertPixelsToDp(float px, Context context){
+    public float convertPixelsToDp(float px, Context context){
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         return px / (metrics.densityDpi / 160f);
     }
-
-
 }

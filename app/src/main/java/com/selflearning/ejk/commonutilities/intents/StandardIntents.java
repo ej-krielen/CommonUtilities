@@ -1,11 +1,13 @@
 package com.selflearning.ejk.commonutilities.intents;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.selflearning.ejk.commonutilities.AppExtension;
 import com.selflearning.ejk.commonutilities.R;
 
 /**
@@ -16,13 +18,30 @@ import com.selflearning.ejk.commonutilities.R;
  */
 public final class StandardIntents {
 
+    private static final String TAG = "StandardIntents";
+    private AppExtension mApp;
+
+    private static StandardIntents sInstance = null;
+
+    public static synchronized StandardIntents getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new StandardIntents(context);
+        }
+
+        return sInstance;
+    }
+
+    protected StandardIntents(Context context) {
+        mApp = (AppExtension) context.getApplicationContext();
+    }
+
     /**
      * Goes to the device default call number activity with the number filled in
      *
      * @param activity calling activity
      * @param number   telephone number to call
      */
-    public static void startPhoneActivity(Activity activity, String number) {
+    public void startPhoneActivity(Activity activity, String number) {
         if (!TextUtils.isEmpty(number)) {
             String url = "tel:" + number.trim();
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(url));
@@ -39,7 +58,7 @@ public final class StandardIntents {
      * @param emailAddress email address to send email to
      * @param subject      subject line of the email
      */
-    public static void startEmailActivity(Activity activity, String emailAddress, String subject) {
+    public void startEmailActivity(Activity activity, String emailAddress, String subject) {
         if (!TextUtils.isEmpty(emailAddress) && !TextUtils.isEmpty(subject)) {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.setData(Uri.parse("mailto:")); // only email apps should handle this
@@ -60,7 +79,7 @@ public final class StandardIntents {
      * @param message  optional: standard message to send
      * @param hashtags optional: hashtag(s) to add (comma seperated)
      */
-    public static void startPostToTwitterActivity(Activity activity, String message, String hashtags) {
+    public void startPostToTwitterActivity(Activity activity, String message, String hashtags) {
 
         String twitterString = "https://twitter.com/intent/tweet?";
 
@@ -86,7 +105,7 @@ public final class StandardIntents {
      * @param activity    calling activity
      * @param accountName name of twitter account to go to
      */
-    public static void startGoToTwitterActivity(Activity activity, String accountName) {
+    public void startGoToTwitterActivity(Activity activity, String accountName) {
         if (!TextUtils.isEmpty(accountName)) {
             String twitterUrl = "twitter://user?screen_name=";
             Uri webpage = Uri.parse(twitterUrl + accountName);

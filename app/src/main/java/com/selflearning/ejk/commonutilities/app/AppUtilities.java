@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import com.selflearning.ejk.commonutilities.AppExtension;
+
 /**
  * Methods containing to app info
  *
@@ -12,10 +14,27 @@ import android.content.pm.PackageManager;
  */
 public final class AppUtilities {
 
+        private static final String TAG = "AppUtilities";
+        private AppExtension mApp;
+
+        private static AppUtilities sInstance = null;
+
+        public static synchronized AppUtilities getInstance(Context context) {
+            if (sInstance == null) {
+                sInstance = new AppUtilities(context);
+            }
+
+            return sInstance;
+        }
+
+        protected AppUtilities(Context context) {
+            mApp = (AppExtension) context.getApplicationContext();
+        }
+
     /**
      * @return Application's version code from the {@code PackageManager}.
      */
-    public static int getAppVersionCode(Context context) {
+    public int getAppVersionCode(Context context) {
         try {
             PackageInfo packageInfo = context.getPackageManager()
                     .getPackageInfo(context.getPackageName(), 0);
@@ -29,7 +48,7 @@ public final class AppUtilities {
     /**
      * @return Application's version name from the {@code PackageManager}.
      */
-    public static String getAppVersionName(Context context) {
+    public String getAppVersionName(Context context) {
         try {
             PackageInfo packageInfo = context.getPackageManager()
                     .getPackageInfo(context.getPackageName(), 0);

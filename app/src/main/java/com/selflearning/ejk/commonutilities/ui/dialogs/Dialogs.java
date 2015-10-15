@@ -2,8 +2,11 @@ package com.selflearning.ejk.commonutilities.ui.dialogs;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+
+import com.selflearning.ejk.commonutilities.AppExtension;
 
 /**
  * Builders for simple Dialogs
@@ -12,6 +15,23 @@ import android.support.v7.app.AlertDialog;
  * @since 3-10-2015
  */
 public final class Dialogs {
+
+    private static final String TAG = "Dialogs";
+    private AppExtension mApp;
+
+    private static Dialogs sInstance = null;
+
+    public static synchronized Dialogs getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new Dialogs(context);
+        }
+
+        return sInstance;
+    }
+
+    protected Dialogs(Context context) {
+        mApp = (AppExtension) context.getApplicationContext();
+    }
 
 
     /**
@@ -25,7 +45,7 @@ public final class Dialogs {
      * @param canCancel         pass false if you want to force the user to use the button(s) to dismiss the dialog
      * @return AlertDialog
      */
-    public static AlertDialog simpleDialog(Activity activity, String title, String message, boolean hasPositiveButton, String positiveButton, boolean canCancel) {
+    public AlertDialog simpleDialog(Activity activity, String title, String message, boolean hasPositiveButton, String positiveButton, boolean canCancel) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(title)
                 .setMessage(message);
@@ -57,7 +77,7 @@ public final class Dialogs {
      * @param message  message for dialog
      * @return ProgressDialog
      */
-    public static ProgressDialog showProgress(Activity activity, String title, String message) {
+    public ProgressDialog showProgress(Activity activity, String title, String message) {
         ProgressDialog progressDialog = new ProgressDialog(activity);
         progressDialog.setTitle(title);
         progressDialog.setMessage(message);
